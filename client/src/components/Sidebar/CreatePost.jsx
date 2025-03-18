@@ -37,6 +37,8 @@ const CreatePost = () => {
 	const showToast = useShowToast();
 	const { isLoading, handleCreatePost } = useCreatePost();
 
+	
+	  
 	const handlePostCreation = async () => {
 		try {
 			await handleCreatePost(selectedFile, caption);
@@ -76,13 +78,16 @@ const CreatePost = () => {
 			<Modal isOpen={isOpen} onClose={onClose} size='xl'>
 				<ModalOverlay />
 
-				<ModalContent bg={"black"} border={"1px solid gray"}>
+				<ModalContent bg={"white"} border={"1px solid gray"}>
 					<ModalHeader>Create Post</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
-						<Textarea
+						<Textarea 
+							
 							placeholder='Post caption...'
+							color={"black"}
 							value={caption}
+							border={"1px solid black"}
 							onChange={(e) => setCaption(e.target.value)}
 						/>
 
@@ -109,7 +114,7 @@ const CreatePost = () => {
 					</ModalBody>
 
 					<ModalFooter>
-						<Button mr={3} onClick={handlePostCreation} isLoading={isLoading}>
+						<Button mr={3} onClick={handlePostCreation} bg={"black"} isLoading={isLoading}>
 							Post
 						</Button>
 					</ModalFooter>

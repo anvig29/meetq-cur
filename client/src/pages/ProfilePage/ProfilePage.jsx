@@ -1,4 +1,180 @@
-import { Container, Flex, Link, Skeleton, SkeletonCircle, Text, VStack } from "@chakra-ui/react";
+import {
+	Container,
+	Flex,
+	Box,
+	Text
+  } from "@chakra-ui/react";
+  import { useState } from "react";
+  import ProfileHeader from "../../components/Profile/ProfileHeader";
+  import ProfileTabs from "../../components/Profile/ProfileTabs";
+  import ProfilePosts from "../../components/Profile/ProfilePosts";
+  import SavedPosts from "../../components/Profile/SavedPosts";
+  import useGetUserProfileByUsername from "../../hooks/useGetUserProfileByUsername";
+  import { useParams, Link as RouterLink } from "react-router-dom";
+  import Header from "../HomePage/Header";
+  
+  const ProfilePage = () => {
+	const { username } = useParams();
+	const { isLoading, userProfile } = useGetUserProfileByUsername(username);
+	const [activeTab, setActiveTab] = useState("posts"); // 🔑 Active tab state
+	
+	const userNotFound = !isLoading && !userProfile;
+	if (userNotFound) return <UserNotFound />;
+	
+	return (
+	  <Container maxW="container.lg" py={5}>
+		<Flex
+		  py={10}
+		  px={4}
+		  pl={{ base: 4, md: 10 }}
+		  w="full"
+		  mx="auto"
+		  flexDirection="column"
+		>
+		  {!isLoading && userProfile && <ProfileHeader userProfile={userProfile} />}
+		</Flex>
+  
+		<Flex
+		  px={{ base: 2, sm: 4 }}
+		  maxW="full"
+		  mx="auto"
+		  borderTop="1px solid"
+		  borderColor="whiteAlpha.300"
+		  direction="column"
+		>
+		  <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+		  
+		  <Box py={4}>
+			{activeTab === "posts" && <ProfilePosts userProfile={userProfile} />}
+			{activeTab === "saved" && <SavedPosts />}
+		  </Box>
+		</Flex>
+	  </Container>
+	);
+  };
+  
+  export default ProfilePage;
+  
+
+
+/*import {
+	Container,
+	Flex,
+	Link,
+	Skeleton,
+	SkeletonCircle,
+	Text,
+	VStack,
+	Box,
+  } from "@chakra-ui/react";
+  import { useState } from "react";
+  import ProfileHeader from "../../components/Profile/ProfileHeader";
+  import ProfileTabs from "../../components/Profile/ProfileTabs";
+  import ProfilePosts from "../../components/Profile/ProfilePosts";
+  import SavedPosts from "../../components/Profile/SavedPosts";
+  import useGetUserProfileByUsername from "../../hooks/useGetUserProfileByUsername";
+  import { useParams, Link as RouterLink } from "react-router-dom";
+import Header from "../HomePage/Header";
+  
+  const ProfilePage = () => {
+
+	const { username } = useParams();
+	const { isLoading, userProfile } = useGetUserProfileByUsername(username);
+	const [activeTab, setActiveTab] = useState("posts"); // 🔑 Active tab state
+  
+	const userNotFound = !isLoading && !userProfile;
+	if (userNotFound) return <UserNotFound />;
+	
+  
+	return (
+		
+	  <Container maxW="container.lg" py={5}>
+		<Flex
+		  py={10}
+		  px={4}
+		  pl={{ base: 4, md: 10 }}
+		  w="full"
+		  mx="auto"
+		  flexDirection="column"
+		>
+		  {!isLoading && userProfile && <ProfileHeader userProfile={userProfile} />}
+		  {isLoading && <ProfileHeaderSkeleton />}
+		</Flex>
+  
+		<Flex
+		  px={{ base: 2, sm: 4 }}
+		  maxW="full"
+		  mx="auto"
+		  borderTop="1px solid"
+		  borderColor="whiteAlpha.300"
+		  direction="column"
+		>
+	
+		  <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+  
+		  
+		  <Box py={4}>
+			{activeTab === "posts" && <ProfilePosts userProfile={userProfile} />}
+			{activeTab === "saved" && <SavedPosts />}
+			{activeTab === "likes" && <LikesComingSoon />}
+		  </Box>
+		</Flex>
+	  </Container>
+	);
+  };
+  
+  export default ProfilePage;
+  
+  const ProfileHeaderSkeleton = () => {
+	return (
+	  <Flex
+		gap={{ base: 4, sm: 10 }}
+		py={10}
+		direction={{ base: "column", sm: "row" }}
+		justifyContent="center"
+		alignItems="center"
+	  >
+		<SkeletonCircle size="24" />
+		<VStack alignItems={{ base: "center", sm: "flex-start" }} gap={2} mx="auto" flex={1}>
+		  <Skeleton height="12px" width="150px" />
+		  <Skeleton height="12px" width="100px" />
+		</VStack>
+	  </Flex>
+	);
+  };
+  
+  const UserNotFound = () => {
+	return (
+	  <Flex flexDir="column" textAlign="center" mx="auto" py={20}>
+		<Text fontSize="2xl">User Not Found</Text>
+		<Link as={RouterLink} to="/" color="blue.500" w="max-content" mx="auto">
+		  Go home
+		</Link>
+	  </Flex>
+	);
+  };
+  
+  const LikesComingSoon = () => (
+	<Flex justifyContent="center" py={10}>
+	  <Text fontSize="xl" fontWeight="bold">
+		Likes Section Coming Soon!
+	  </Text>
+	</Flex>
+  );
+  
+
+
+*/
+
+
+
+
+
+
+
+
+
+/*import { Container, Flex, Link, Skeleton, SkeletonCircle, Text, VStack } from "@chakra-ui/react";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
 import ProfileTabs from "../../components/Profile/ProfileTabs";
 import ProfilePosts from "../../components/Profile/ProfilePosts";
@@ -66,3 +242,4 @@ const UserNotFound = () => {
 		</Flex>
 	);
 };
+*/
